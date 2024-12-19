@@ -3,6 +3,7 @@ using MediatR;
 using FootballLeague.Api.Entities;
 using FootballLeague.Api.Features.Responses;
 using FootballLeague.Api.Features.Events;
+using FootballLeague.Api.Services;
 
 namespace FootballLeague.Api.Features.Commands.Teams.Create
 {
@@ -10,16 +11,18 @@ namespace FootballLeague.Api.Features.Commands.Teams.Create
     {
         private readonly AppDbContext _context;
         private readonly IMediator _mediator;
+        private readonly ITransactionManager _transactionManager;
 
-        public CreateTeamCommandHandler(AppDbContext context, IMediator mediator)
+        public CreateTeamCommandHandler(AppDbContext context, IMediator mediator, ITransactionManager transactionManager)
         {
             _context = context;
             _mediator = mediator;
+            _transactionManager = transactionManager;
         }
 
         public async Task<TeamResponse> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+            using var transaction = await _transactionManager.BeginTransactionAsync(cancellationToken);
 
             try
             {

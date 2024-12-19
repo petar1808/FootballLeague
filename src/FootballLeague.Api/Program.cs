@@ -2,6 +2,7 @@ using FluentValidation;
 using FootballLeague.Api.Behaviors;
 using FootballLeague.Api.Middlewares;
 using FootballLeague.Api.Persistence;
+using FootballLeague.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<ITransactionManager, EfCoreTransactionManager>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"))

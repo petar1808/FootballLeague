@@ -1,8 +1,8 @@
 ﻿using FootballLeague.Api.Features.Commands.Matches.Create;
+using FootballLeague.Api.Features.Commands.Matches.Delete;
 using FootballLeague.Api.Features.Commands.Matches.Update;
 using FootballLeague.Api.Features.Queries.Matches.Get;
 using FootballLeague.Api.Features.Queries.Matches.List;
-using FootballLeague.Api.Features.Queries.Teams.List;
 using FootballLeague.Api.Features.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +43,13 @@ namespace FootballLeague.Api.Controllers
         public async Task<ActionResult<IEnumerable<MatchResponse>>> ListMatch()
         {
             return Ok(await _mediator.Send(new ListMatchQuery()));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteMatch(int id)
+        {
+            await _mediator.Send(new DeleteMatchCommnad(id));
+            return Ok();
         }
     }
 }

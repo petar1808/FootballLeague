@@ -25,6 +25,11 @@ namespace FootballLeague.Api.Entities
             ProcessMatchRecord(goalsScored, goalsConceded);
         }
 
+        public void RemoveRecord(int goalsScored, int goalsConceded)
+        {
+            ProcessMatchRecord(goalsScored, goalsConceded, true);
+        }
+
         public void UpdateRecord(int oldGoalsScored, int oldGoalsConceded, int newGoalsScored, int newGoalsConceded)
         {
             // Revert the old record
