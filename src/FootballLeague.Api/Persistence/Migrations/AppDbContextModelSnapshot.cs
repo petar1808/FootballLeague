@@ -65,9 +65,6 @@ namespace FootballLeague.Api.Persistence.Migrations
                     b.Property<int>("Draws")
                         .HasColumnType("int");
 
-                    b.Property<int>("GoalDifference")
-                        .HasColumnType("int");
-
                     b.Property<int>("GoalsConceded")
                         .HasColumnType("int");
 
@@ -110,6 +107,9 @@ namespace FootballLeague.Api.Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Teams");
                 });

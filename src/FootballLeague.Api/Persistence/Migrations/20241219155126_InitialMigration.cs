@@ -66,7 +66,6 @@ namespace FootballLeague.Api.Persistence.Migrations
                     Losses = table.Column<int>(type: "int", nullable: false),
                     GoalsScored = table.Column<int>(type: "int", nullable: false),
                     GoalsConceded = table.Column<int>(type: "int", nullable: false),
-                    GoalDifference = table.Column<int>(type: "int", nullable: false),
                     Points = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -94,6 +93,12 @@ namespace FootballLeague.Api.Persistence.Migrations
                 name: "IX_Standings_TeamId",
                 table: "Standings",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_Name",
+                table: "Teams",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />

@@ -2,8 +2,18 @@
 {
     public class Team
     {
-        public int Id { get; set; }
+        public Team(string name)
+        {
+            Name = name;
+        }
 
-        public string Name { get; set; }
+        public int Id { get;  }
+
+        public string Name { get; private set; }
+
+        public void UpdateName(string name)
+        {
+            Name = name;
+        }
     }
 }

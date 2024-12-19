@@ -12,6 +12,8 @@ namespace FootballLeague.Api.Persistence.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name).HasMaxLength(TeamNameMaxLenght).IsRequired();
+
+            builder.HasIndex(x => x.Name).IsUnique();
         }
     }
 }

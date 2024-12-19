@@ -1,17 +1,36 @@
-﻿using System;
-
-namespace FootballLeague.Api.Entities
+﻿namespace FootballLeague.Api.Entities
 {
     public class Match
     {
-        public int Id { get; set; }
-        public DateTime MatchDate { get; set; }
-        public int HomeTeamId { get; set; }
-        public int AwayTeamId { get; set; }
-        public int HomeTeamScore { get; set; }
-        public int AwayTeamScore { get; set; }
+        public Match(int homeTeamId, int awayTeamId, int homeTeamScore, int awayTeamScore)
+        {
+            MatchDate = DateTime.UtcNow;
+            HomeTeamId = homeTeamId;
+            AwayTeamId = awayTeamId;
+            HomeTeamScore = homeTeamScore;
+            AwayTeamScore = awayTeamScore;
+        }
 
-        public Team HomeTeam { get; set; }
-        public Team AwayTeam { get; set; }
+        public int Id { get; }
+        public DateTime MatchDate { get; }
+        public int HomeTeamId { get; }
+        public int AwayTeamId { get; }
+        public int HomeTeamScore { get; private set; }
+        public int AwayTeamScore { get; private set; }
+
+        public Team HomeTeam { get; }
+        public Team AwayTeam { get; }
+
+        public Match UpdateHomeTeamScore(int homeTeamScore)
+        {
+            HomeTeamScore = homeTeamScore;
+            return this;
+        }
+
+        public Match UpdateAwayTeamScore(int awayTeamScore)
+        {
+            AwayTeamScore = awayTeamScore;
+            return this;
+        }
     }
 }
