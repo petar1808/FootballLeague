@@ -75,8 +75,7 @@ namespace FootballLeague.Api.Persistence.Migrations
                         name: "FK_Standings_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -92,7 +91,8 @@ namespace FootballLeague.Api.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Standings_TeamId",
                 table: "Standings",
-                column: "TeamId");
+                column: "TeamId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_Name",

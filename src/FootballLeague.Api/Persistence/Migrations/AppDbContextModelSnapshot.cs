@@ -88,7 +88,8 @@ namespace FootballLeague.Api.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeamId");
+                    b.HasIndex("TeamId")
+                        .IsUnique();
 
                     b.ToTable("Standings");
                 });
@@ -136,12 +137,17 @@ namespace FootballLeague.Api.Persistence.Migrations
             modelBuilder.Entity("FootballLeague.Api.Entities.Standings", b =>
                 {
                     b.HasOne("FootballLeague.Api.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithOne("Standings")
+                        .HasForeignKey("FootballLeague.Api.Entities.Standings", "TeamId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("FootballLeague.Api.Entities.Team", b =>
+                {
+                    b.Navigation("Standings");
                 });
 #pragma warning restore 612, 618
         }

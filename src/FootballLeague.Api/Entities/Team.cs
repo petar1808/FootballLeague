@@ -11,6 +11,8 @@
 
         public string Name { get; private set; }
 
+        public Standings Standings { get; }
+
         public void UpdateName(string name)
         {
             Name = name;

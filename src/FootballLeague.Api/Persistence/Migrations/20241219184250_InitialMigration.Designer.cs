@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballLeague.Api.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241219155126_InitialMigration")]
+    [Migration("20241219184250_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -91,7 +91,8 @@ namespace FootballLeague.Api.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeamId");
+                    b.HasIndex("TeamId")
+                        .IsUnique();
 
                     b.ToTable("Standings");
                 });
@@ -139,12 +140,17 @@ namespace FootballLeague.Api.Persistence.Migrations
             modelBuilder.Entity("FootballLeague.Api.Entities.Standings", b =>
                 {
                     b.HasOne("FootballLeague.Api.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithOne("Standings")
+                        .HasForeignKey("FootballLeague.Api.Entities.Standings", "TeamId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("FootballLeague.Api.Entities.Team", b =>
+                {
+                    b.Navigation("Standings");
                 });
 #pragma warning restore 612, 618
         }

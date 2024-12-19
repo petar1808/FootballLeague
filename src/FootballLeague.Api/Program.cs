@@ -2,7 +2,6 @@ using FluentValidation;
 using FootballLeague.Api.Behaviors;
 using FootballLeague.Api.Middlewares;
 using FootballLeague.Api.Persistence;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;

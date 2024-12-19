@@ -28,12 +28,8 @@ namespace FootballLeague.Api.Features.Commands.Teams.Create
                 _context.Teams.Add(team);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var @event = new TeamCreatedEvent
-                {
-                    TeamId = team.Id
-                };
-
-                await _mediator.Publish(@event, cancellationToken);
+                var createTeamEvent = new TeamCreatedEvent(team.Id);
+                await _mediator.Publish(createTeamEvent, cancellationToken);
 
                 await transaction.CommitAsync(cancellationToken);
 

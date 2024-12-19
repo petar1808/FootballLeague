@@ -12,9 +12,9 @@ namespace FootballLeague.Api.Persistence.Configurations
 
             builder
                 .HasOne(x => x.Team)
-                .WithMany()
-                .HasForeignKey(x => x.TeamId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithOne(x => x.Standings)
+                .HasForeignKey<Standings>(x => x.TeamId)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

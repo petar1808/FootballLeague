@@ -3,8 +3,7 @@ using MediatR;
 
 namespace FootballLeague.Api.Features.Commands.Teams.Create
 {
-    public class CreateTeamCommand : IRequest<TeamResponse>
+    public class CreateTeamCommand : TeamCommonCommand, IRequest<TeamResponse>
     {
-        public string Name { get; set; }
     }
 }

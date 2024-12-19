@@ -4,6 +4,11 @@ namespace FootballLeague.Api.Features.Events
 {
     public class TeamCreatedEvent : INotification
     {
-        public int TeamId { get; set; }
+        public TeamCreatedEvent(int teamId)
+        {
+            TeamId = teamId;
+        }
+
+        public int TeamId { get; }
     }
 }
