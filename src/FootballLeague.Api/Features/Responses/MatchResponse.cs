@@ -29,7 +29,7 @@ namespace FootballLeague.Api.Features.Responses
                     match.HomeTeamId,
                     match.AwayTeamId,
                     match.HomeTeamScore,
-                    match.AwayTeamId);
+                    match.AwayTeamScore);
         }
     }
 }

@@ -6,16 +6,16 @@ namespace FootballLeague.Api.Features.Commands.Teams.Delete
 {
     public class DeleteTeamCommandHandler : IRequestHandler<DeleteTeamCommand>
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly AppDbContext _context;
 
         public DeleteTeamCommandHandler(AppDbContext appDbContext)
         {
-            _appDbContext = appDbContext;
+            _context = appDbContext;
         }
 
         public async Task Handle(DeleteTeamCommand request, CancellationToken cancellationToken)
         {
-            var team = await _appDbContext
+            var team = await _context
                 .Teams
                 .Include(x => x.Standings)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
@@ -25,10 +25,10 @@ namespace FootballLeague.Api.Features.Commands.Teams.Delete
                 throw new KeyNotFoundException($"Team with ID {request.Id} was not found.");
             }
 
-            _appDbContext.Teams.Remove(team);
+            _context.Teams.Remove(team);
 
 
-            await _appDbContext.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

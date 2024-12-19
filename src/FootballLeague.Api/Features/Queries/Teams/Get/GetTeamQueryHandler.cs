@@ -7,16 +7,16 @@ namespace FootballLeague.Api.Features.Queries.Teams.Get
 {
     public class GetTeamQueryHandler : IRequestHandler<GetTeamQuery, TeamResponse>
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly AppDbContext _context;
 
         public GetTeamQueryHandler(AppDbContext appDbContext)
         {
-            _appDbContext = appDbContext;
+            _context = appDbContext;
         }
 
         public async Task<TeamResponse> Handle(GetTeamQuery request, CancellationToken cancellationToken)
         {
-            var team = await _appDbContext
+            var team = await _context
                 .Teams
                 .FindAsync(request.Id, cancellationToken);
 
