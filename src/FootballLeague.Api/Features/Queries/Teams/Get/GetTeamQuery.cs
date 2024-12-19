@@ -3,13 +3,12 @@ using MediatR;
 
 namespace FootballLeague.Api.Features.Queries.Teams.Get
 {
-    public class TeamGetQuery : IRequest<TeamResponse>
+    public class GetTeamQuery : IRequest<TeamResponse>
     {
-        public int Id { get; private set; }
-
-        public void SetId(int id)
+        public GetTeamQuery(int id)
         {
             Id = id;
         }
+        public int Id { get; }
     }
 }

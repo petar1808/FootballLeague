@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FootballLeague.Api.Features.Commands.Matches.Create;
+using FootballLeague.Api.Features.Commands.Matches.Update;
+using FootballLeague.Api.Features.Responses;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FootballLeague.Api.Controllers
 {
@@ -6,17 +10,24 @@ namespace FootballLeague.Api.Controllers
     [Route("api/matches")]
     public class MatchesController : ControllerBase
     {
-        private readonly ILogger<MatchesController> _logger;
+        private readonly IMediator _mediator;
 
-        public MatchesController(ILogger<MatchesController> logger)
+        public MatchesController(IMediator mediator)
         {
-            _logger = logger;
+            _mediator = mediator;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpPost]
+        public async Task<ActionResult<MatchResponse>> CreateMatch([FromBody] CreateMatchCommand request)
         {
-            return Ok();
+            return await _mediator.Send(request);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<MatchResponse>> UpdateMatch(int id, [FromBody] UpdateMatchCommand request)
+        {
+            request.SetId(id);
+            return await _mediator.Send(request);
         }
     }
 }

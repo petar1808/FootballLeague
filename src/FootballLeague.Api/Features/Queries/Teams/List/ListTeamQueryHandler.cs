@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballLeague.Api.Features.Queries.Teams.List
 {
-    public class TeamListQueryHandler : IRequestHandler<TeamListQuery, IEnumerable<TeamResponse>>
+    public class ListTeamQueryHandler : IRequestHandler<ListTeamQuery, IEnumerable<TeamResponse>>
     {
         private readonly AppDbContext _appDbContext;
 
-        public TeamListQueryHandler(AppDbContext appDbContext)
+        public ListTeamQueryHandler(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<TeamResponse>> Handle(TeamListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TeamResponse>> Handle(ListTeamQuery request, CancellationToken cancellationToken)
         {
             return await _appDbContext
                 .Teams

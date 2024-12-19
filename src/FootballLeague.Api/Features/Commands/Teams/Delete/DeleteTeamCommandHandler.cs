@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballLeague.Api.Features.Commands.Teams.Delete
 {
-    public class TeamDeleteCommandHandler : IRequestHandler<TeamDeleteCommand>
+    public class DeleteTeamCommandHandler : IRequestHandler<DeleteTeamCommand>
     {
         private readonly AppDbContext _appDbContext;
 
-        public TeamDeleteCommandHandler(AppDbContext appDbContext)
+        public DeleteTeamCommandHandler(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
-        public async Task Handle(TeamDeleteCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteTeamCommand request, CancellationToken cancellationToken)
         {
             var team = await _appDbContext
                 .Teams

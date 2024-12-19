@@ -15,7 +15,7 @@ namespace FootballLeague.Api.Features.Commands.Teams.Update
 
         public async Task<TeamResponse> Handle(UpdateTeamCommand request, CancellationToken cancellationToken)
         {
-            var team = await _context.Teams.FindAsync(request.Id);
+            var team = await _context.Teams.FindAsync(request.Id, cancellationToken);
 
             if (team == null)
             {

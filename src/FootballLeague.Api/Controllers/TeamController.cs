@@ -36,26 +36,21 @@ namespace FootballLeague.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteTeam(int id)
         {
-            TeamDeleteCommand request = new TeamDeleteCommand();
-            request.SetId(id);
-            await _mediator.Send(request);
+            await _mediator.Send(new DeleteTeamCommand(id));
             return Ok();
         }
 
         [HttpGet] 
         public async Task<ActionResult<IEnumerable<TeamResponse>>> ListTeams()
         {
-            var query = new TeamListQuery();
-            return Ok(await _mediator.Send(query));
+            return Ok(await _mediator.Send(new ListTeamQuery()));
         }
 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TeamResponse>> GetTeamById(int id)
         {
-            TeamGetQuery request = new TeamGetQuery();
-            request.SetId(id);
-            return await _mediator.Send(request);
+            return await _mediator.Send(new GetTeamQuery(id));
         }
     }
 }

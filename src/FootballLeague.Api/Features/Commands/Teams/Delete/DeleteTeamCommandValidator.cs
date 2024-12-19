@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballLeague.Api.Features.Commands.Teams.Delete
 {
-    public class TeamDeleteCommandValidator : AbstractValidator<TeamDeleteCommand>
+    public class DeleteTeamCommandValidator : AbstractValidator<DeleteTeamCommand>
     {
-        public TeamDeleteCommandValidator(AppDbContext appContext)
+        public DeleteTeamCommandValidator(AppDbContext appContext)
         {
             RuleFor(x => x.Id)
                 .MustAsync(async (id, cancellationToken) =>

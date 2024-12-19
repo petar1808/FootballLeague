@@ -2,13 +2,12 @@
 
 namespace FootballLeague.Api.Features.Commands.Teams.Delete
 {
-    public class TeamDeleteCommand : IRequest
+    public class DeleteTeamCommand : IRequest
     {
-        public int Id { get; private set; }
-
-        public void SetId(int id)
+        public DeleteTeamCommand(int id)
         {
             Id = id;
         }
+        public int Id { get; private set; }
     }
 }
