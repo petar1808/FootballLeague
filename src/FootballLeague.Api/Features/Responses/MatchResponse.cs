@@ -5,31 +5,24 @@ namespace FootballLeague.Api.Features.Responses
 {
     public class MatchResponse
     {
-        public MatchResponse(int id, DateTime matchDate, int homeTeamId, int awayTeamId, int homeTeamScore, int awayTeamScore)
-        {
-            Id = id;
-            MatchDate = matchDate;
-            HomeTeamId = homeTeamId;
-            AwayTeamId = awayTeamId;
-            HomeTeamScore = homeTeamScore;
-            AwayTeamScore = awayTeamScore;
-        }
-
-        public int Id { get; }
-        public DateTime MatchDate { get; }
-        public int HomeTeamId { get; }
-        public int AwayTeamId { get; }
+        public int Id { get; set; }
+        public DateTime MatchDate { get; set; }
+        public int HomeTeamId { get; set; }
+        public int AwayTeamId { get; set; }
         public int HomeTeamScore { get; set; }
         public int AwayTeamScore { get; set; }
 
-        public static MatchResponse FromMatch(Match match)
+        public static MatchResponse MatchResponseFromMatch(Match match)
         {
-            return new MatchResponse(match.Id,
-                    match.MatchDate,
-                    match.HomeTeamId,
-                    match.AwayTeamId,
-                    match.HomeTeamScore,
-                    match.AwayTeamScore);
+            return new MatchResponse
+            {
+                Id = match.Id,
+                MatchDate = match.MatchDate,
+                HomeTeamId = match.HomeTeamId,
+                AwayTeamId = match.AwayTeamId,
+                HomeTeamScore = match.HomeTeamScore,
+                AwayTeamScore = match.AwayTeamScore
+            };
         }
     }
 }

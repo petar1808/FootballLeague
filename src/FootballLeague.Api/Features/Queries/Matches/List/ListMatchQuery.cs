@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FootballLeague.Api.Features.Queries.Matches.List
 {
-    public class ListMatchQuery : IRequest<IEnumerable<MatchResponse>>
+    public class ListMatchQuery : IRequest<IEnumerable<MatchDetailsResponse>>
     {
     }
 }

@@ -34,13 +34,13 @@ namespace FootballLeague.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MatchResponse>> GetMatchById(int id)
+        public async Task<ActionResult<MatchDetailsResponse>> GetMatchById(int id)
         {
             return await _mediator.Send(new GetMatchQuery(id));
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MatchResponse>>> ListMatch()
+        public async Task<ActionResult<IEnumerable<MatchDetailsResponse>>> ListMatch()
         {
             return Ok(await _mediator.Send(new ListMatchQuery()));
         }

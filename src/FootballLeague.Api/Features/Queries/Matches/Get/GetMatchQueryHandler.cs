@@ -1,10 +1,11 @@
 ﻿using FootballLeague.Api.Features.Responses;
 using FootballLeague.Api.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace FootballLeague.Api.Features.Queries.Matches.Get
 {
-    public class GetMatchQueryHandler : IRequestHandler<GetMatchQuery, MatchResponse>
+    public class GetMatchQueryHandler : IRequestHandler<GetMatchQuery, MatchDetailsResponse>
     {
         private readonly AppDbContext _context;
 
@@ -13,16 +14,19 @@ namespace FootballLeague.Api.Features.Queries.Matches.Get
             _context = context;
         }
 
-        public async Task<MatchResponse> Handle(GetMatchQuery request, CancellationToken cancellationToken)
+        public async Task<MatchDetailsResponse> Handle(GetMatchQuery request, CancellationToken cancellationToken)
         {
-            var match = await _context.Matches.FindAsync(request.Id, cancellationToken);
+            var match = await _context.Matches
+                .Include(x => x.HomeTeam)
+                .Include(x => x.AwayTeam)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (match == null)
             {
                 throw new KeyNotFoundException($"Match with ID {request.Id} was not found.");
             }
 
-            return MatchResponse.FromMatch(match);
+            return MatchDetailsResponse.MatchDetailsResponseFromMatch(match);
         }
     }
 }
