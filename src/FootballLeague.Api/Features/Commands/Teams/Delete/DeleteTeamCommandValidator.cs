@@ -13,7 +13,7 @@ namespace FootballLeague.Api.Features.Commands.Teams.Delete
                 {
                     return !await appContext.Matches.AnyAsync(x => x.HomeTeamId == id || x.AwayTeamId == id);
                 })
-                .WithMessage("Team with the same id already exists in Standings!");
+                .WithMessage("There are already matches created for this team, you must delete its matches first!");
         }
     }
 }
