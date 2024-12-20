@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballLeague.Tests
 {
-    public class TestDatabaseHelper
+    public static class TestDatabaseHelper
     {
         public static DbContextOptions<AppDbContext> CreateInMemoryDatabaseOptions(string databaseName)
         {
@@ -29,13 +29,12 @@ namespace FootballLeague.Tests
         {
             var context = await InitializeDatabaseWithTeamAsync(teamName);
 
-            var team = await context.Teams.FirstOrDefaultAsync();
+            var team = await context.Teams.FirstAsync();
             var standings = new Standings(team.Id);
             context.Standings.Add(standings);
             await context.SaveChangesAsync();
 
             return context;
         }
-
     }
 }

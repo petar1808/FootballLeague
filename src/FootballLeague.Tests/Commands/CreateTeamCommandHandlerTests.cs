@@ -1,5 +1,6 @@
 ﻿using FootballLeague.Api.Features.Commands.Teams.Create;
 using FootballLeague.Api.Features.Events;
+using FootballLeague.Api.Persistence;
 using FootballLeague.Api.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace FootballLeague.Tests.Commands
 {
     public class CreateTeamCommandHandlerTests
     {
-        private readonly Faker _faker = new Faker();
+        private readonly Faker _faker = new();
         private readonly IMediator _mediator;
         private readonly ITransactionManager _transactionManager;
 
@@ -18,20 +19,15 @@ namespace FootballLeague.Tests.Commands
             _transactionManager = Substitute.For<ITransactionManager>();
         }
 
-        private CreateTeamCommand CreateValidCommand()
-        {
-            var teamName = _faker.Company.CompanyName();
-            return new CreateTeamCommand { Name = teamName };
-        }
-
         [Fact]
         public async Task Handle_ShouldCreateTeam_AndCommitTransaction()
         {
             // Arrange
-            var context = await TestDatabaseHelper.InitializeDatabaseWithTeamAsync("Team1");
-            var team = await context.Teams.FirstOrDefaultAsync();
+            var teamName = _faker.Company.CompanyName();
+            var options = TestDatabaseHelper.CreateInMemoryDatabaseOptions("TestDatabase_CreateTeam");
+            var command = new CreateTeamCommand { Name = teamName };
 
-            var command = new CreateTeamCommand { Name = team.Name };
+            await using var context = new AppDbContext(options);
             var handler = new CreateTeamCommandHandler(context, _mediator, _transactionManager);
 
             // Act
@@ -39,14 +35,15 @@ namespace FootballLeague.Tests.Commands
 
             // Assert
             result.Should().NotBeNull();
-            result.Name.Should().Be(team.Name);
+            result.Name.Should().Be(teamName);
             result.Id.Should().BeGreaterThan(0);
 
             var createdTeam = await context.Teams.FindAsync(result.Id);
             createdTeam.Should().NotBeNull();
-            createdTeam!.Name.Should().Be(team.Name);
+            createdTeam!.Name.Should().Be(teamName);
 
             await _mediator.Received(1).Publish(Arg.Any<TeamCreatedEvent>(), Arg.Any<CancellationToken>());
         }
     }
+
 }

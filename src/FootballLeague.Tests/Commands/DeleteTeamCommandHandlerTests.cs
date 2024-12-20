@@ -11,7 +11,7 @@ namespace FootballLeague.Tests.Commands
         {
             // Arrange
             var context = await TestDatabaseHelper.InitializeDatabaseWithTeamAsync("Team1");
-            var team = await context.Teams.FirstOrDefaultAsync();
+            var team = await context.Teams.FirstAsync();
 
             var command = new DeleteTeamCommand(team.Id);
             var handler = new DeleteTeamCommandHandler(context);
@@ -46,8 +46,8 @@ namespace FootballLeague.Tests.Commands
         public async Task Handle_ShouldDeleteTeamAndStandings_WhenTeamExistsWithStandings()
         {
             // Arrange
-            var context = await TestDatabaseHelper.InitializeDatabaseWithTeamAndStandingsAsync("Team with Standings");
-            var team = await context.Teams.FirstOrDefaultAsync();
+            var context = await TestDatabaseHelper.InitializeDatabaseWithTeamAndStandingsAsync("TeamWithStandings");
+            var team = await context.Teams.FirstAsync();
 
             var command = new DeleteTeamCommand(team.Id);
             var handler = new DeleteTeamCommandHandler(context);
